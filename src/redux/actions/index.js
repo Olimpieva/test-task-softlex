@@ -26,5 +26,6 @@ export const getTasks = () => async (dispatch, getState) => {
     };
 };
 
+export const setRequestSettings = (settings) => ({ type: SET_REQUEST_SETTINGS, payload: settings });
 
 

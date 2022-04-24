@@ -11,11 +11,15 @@ import './TaskList.css';
 function TaskList() {
 
     const dispatch = useDispatch();
-    const {entities: tasks} = useSelector(currentTasksSelector);
+    const {entities: tasks, settings} = useSelector(currentTasksSelector);
 
     useEffect(() => {
         dispatch(getTasks());
     }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getTasks());
+    }, [settings, dispatch]);
 
     if (!tasks) {
         return <div>Loading</div>
@@ -23,6 +27,8 @@ function TaskList() {
 
     return (
         <div className="task-list">
+            <SortPanel />
+
             <ul className='task-list'>
                 {tasks.map(task => <Task key={task.id} item={task} />)}
             </ul>
