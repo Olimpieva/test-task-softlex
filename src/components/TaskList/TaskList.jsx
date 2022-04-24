@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getTasks } from '../../redux/actions';
 import { currentTasksSelector } from '../../redux/selectors';
+import PageControlPanel from '../PageControlPanel/PageControlPanel';
 import SortPanel from '../SortPanel/SortPanel';
 import Task from '../Task/Task';
 
@@ -32,6 +33,8 @@ function TaskList() {
             <ul className='task-list'>
                 {tasks.map(task => <Task key={task.id} item={task} />)}
             </ul>
+
+            <PageControlPanel />
         </div>
     );
 };
