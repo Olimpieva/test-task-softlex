@@ -6,7 +6,7 @@ import './MainPage.css';
 function MainPage() {
 
     return (
-        <div className="MainPage">
+        <div className="main-page">
             <h1>Tasks</h1>
             <Tasklist />
         </div>

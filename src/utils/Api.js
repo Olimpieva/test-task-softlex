@@ -7,7 +7,7 @@ class MainApi {
         this._requestSettings = apiOptions.settings;
     }
 
-    async _sendRequest(path, settings, requestOptions) {
+    async _sendRequest(path, requestOptions, settings = '') {
 
         try {
             const response = await fetch(`${this._url}${path}?developer=${this._developerName}${settings}`, { ...requestOptions });
@@ -35,10 +35,23 @@ class MainApi {
 
     getTasks(currentSettings) {
 
-        return this._sendRequest(``, this._getRequestSettings(currentSettings), {
-            method: 'GET',
-        });
+        return this._sendRequest(
+            ``,
+            { method: 'GET' },
+            this._getRequestSettings(currentSettings),
+        );
     };
+
+    login(loginData) {
+
+        return this._sendRequest(
+            `login`,
+            {
+                method: 'POST',
+                body: loginData,
+            }
+        );
+    }
 
 };
 
