@@ -1,0 +1,1 @@
+export const currentTasksSelector = state => state.tasks;
