@@ -1,4 +1,4 @@
-import { LOGIN, REQUEST, SUCCESS, FAILURE, RESET_ERROR } from "../actions/actionTypes";
+import { LOGIN, REQUEST, SUCCESS, FAILURE, RESET_ERROR, LOGOUT } from "../actions/actionTypes";
 
 const initialState = {
     username: undefined,
@@ -15,6 +15,8 @@ const User = (state = initialState, action) => {
             return { ...state, username: action.payload, loading: false, error: null };
         case LOGIN + FAILURE:
             return { ...state, username: null, loading: false, error: action.payload || null };
+        case LOGOUT:
+            return { ...state, username: null }
         case RESET_ERROR:
             return { ...state, error: null };
         default:

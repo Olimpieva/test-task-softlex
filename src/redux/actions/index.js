@@ -5,6 +5,7 @@ import {
     FAILURE,
     GET_TASKS,
     LOGIN,
+    LOGOUT,
     REQUEST,
     SET_REQUEST_SETTINGS,
     SUCCESS,
@@ -12,25 +13,17 @@ import {
 } from "./actionTypes";
 import { createFormData, getCookie } from "../../utils/constants";
 
-export const getTasks = () => async (dispatch, getState) => {
-    const { tasks: { loading, settings } } = getState();
+export const checkToken = () => (dispatch) => {
 
-    if (loading) {
-        return;
-    };
+    const jwt = getCookie('jwt');
 
-    dispatch({ type: GET_TASKS + REQUEST });
+    if (!jwt) {
+        return dispatch({ type: LOGIN + FAILURE })
+    }
 
-    try {
-        const { message: { tasks, total_task_count: total } } = await api.getTasks(settings);
-
-        dispatch({ type: GET_TASKS + SUCCESS, payload: { tasks, total } });
-    } catch (error) {
-        dispatch(handleError({ errorCode: 500, action: GET_TASKS }));
-    };
+    const username = getCookie('username');
+    dispatch({ type: LOGIN + SUCCESS, payload: username })
 };
-
-export const setRequestSettings = (settings) => ({ type: SET_REQUEST_SETTINGS, payload: settings });
 
 export const login = ({ username, password }) => async (dispatch, getState) => {
     const { user: { loading } } = getState();
@@ -59,18 +52,34 @@ export const login = ({ username, password }) => async (dispatch, getState) => {
     };
 };
 
-export const checkToken = () => (dispatch) => {
+export const logout = () => {
+    document.cookie = `jwt=; path=/; max-age=0`;
+    document.cookie = `username=; path=/; max-age=0`;
 
-    const jwt = getCookie('jwt');
+    return { type: LOGOUT };
+}
 
-    if (!jwt) {
-        return dispatch({ type: LOGIN + FAILURE })
-    }
+export const getTasks = () => async (dispatch, getState) => {
+    const { tasks: { loading, settings } } = getState();
 
-    const username = getCookie('username');
+    if (loading) {
+        return;
+    };
 
-    dispatch({ type: LOGIN + SUCCESS, payload: username })
+    dispatch({ type: GET_TASKS + REQUEST });
+
+    try {
+        const { message: { tasks, total_task_count: total } } = await api.getTasks(settings);
+
+        dispatch({ type: GET_TASKS + SUCCESS, payload: { tasks, total } });
+    } catch (error) {
+        dispatch(handleError({ errorCode: 500, action: GET_TASKS }));
+    };
 };
+
+export const setRequestSettings = (settings) => ({ type: SET_REQUEST_SETTINGS, payload: settings });
+
+
 
 export const createTask = (newTaskData) => async (dispatch) => {
 
