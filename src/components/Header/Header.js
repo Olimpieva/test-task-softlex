@@ -16,8 +16,6 @@ function Header() {
         dispatch(logout());
     };
 
-    console.log({ username })
-
     return (
         <header className="header">
             {username ?

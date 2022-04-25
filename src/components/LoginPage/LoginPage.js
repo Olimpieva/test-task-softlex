@@ -29,14 +29,14 @@ function LoginPage() {
         <div className="login-page">
             <header className="header login-page__header">
                 <Link to="/">
-                    <button>To tasks</button>
+                    <button className="header__button header__button_redirect">To tasks</button>
                 </Link>
             </header>
             <main className="login-page__content">
-                <form onSubmit={submitHandler}>
-                    <fieldset>
-                        <label>Username</label>
-                        <input name="username"
+                <form className="login-page__form" onSubmit={submitHandler}>
+                    <fieldset className="login-page__fieldset" >
+                        <label className="login-page__label">Username</label>
+                        <input name="username" className="login-page__input"
                             type="text"
                             minLength="2"
                             value={loginForm.username}
@@ -44,9 +44,9 @@ function LoginPage() {
                             required
                         />
                     </fieldset>
-                    <fieldset>
-                        <label>Password</label>
-                        <input name="password"
+                    <fieldset className="login-page__fieldset" >
+                        <label className="login-page__label">Password</label>
+                        <input name="password" className="login-page__input"
                             type="password"
                             minLength="3"
                             value={loginForm.password}
@@ -54,7 +54,7 @@ function LoginPage() {
                             required
                         />
                     </fieldset>
-                    <button type="submit">Log in</button>
+                    <button type="submit" className="login-page__button">Log in</button>
                 </form>
             </main>
         </div>
