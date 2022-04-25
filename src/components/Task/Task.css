@@ -43,6 +43,10 @@
     pointer-events: none;
 }
 
+.task-form__button:hover {
+    opacity: .8;
+}
+
 .task-form__input-field .input-field__input{
     color: #FFF;
 }

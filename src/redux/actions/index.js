@@ -14,7 +14,6 @@ import {
 import { createFormData, getCookie } from "../../utils/constants";
 
 export const checkToken = () => (dispatch) => {
-
     const jwt = getCookie('jwt');
 
     if (!jwt) {
@@ -79,9 +78,15 @@ export const getTasks = () => async (dispatch, getState) => {
 
 export const setRequestSettings = (settings) => ({ type: SET_REQUEST_SETTINGS, payload: settings });
 
+export const createTask = (newTaskData) => async (dispatch, getState) => {
 
+    const { tasks: { loading } } = getState();
 
-export const createTask = (newTaskData) => async (dispatch) => {
+    if (loading) {
+        return;
+    };
+
+    dispatch({ type: GET_TASKS + REQUEST });
 
     const requestData = createFormData(newTaskData);
 
@@ -98,10 +103,13 @@ export const createTask = (newTaskData) => async (dispatch) => {
     };
 }
 
-export const updateTask = ({ id, status, text, username, email }) => async (dispatch) => {
+export const updateTask = ({ id, status, text, username, email }) => async (dispatch, getState) => {
+    const { tasks: { loading } } = getState();
     const token = getCookie('jwt');
 
-    if (!token) {
+    dispatch({ type: GET_TASKS + REQUEST });
+
+    if (!token || loading) {
         return;
     }
 
@@ -118,6 +126,6 @@ export const updateTask = ({ id, status, text, username, email }) => async (disp
     } catch (error) {
         dispatch(handleError({ errorCode: error.errorCode || 401, action: UPDATE_TASK }));
     };
-}
+};
 
 

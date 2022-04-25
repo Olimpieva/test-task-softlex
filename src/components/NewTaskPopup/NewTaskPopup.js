@@ -6,10 +6,12 @@ import InputField from '../InputField/InputField';
 
 import './NewTaskPopup.css';
 
+const initialNewTaskForm = { username: '', email: '', text: '' }
+
 function NewTaskPopup({ isOpened, onClose }) {
 
     const dispatch = useDispatch();
-    const [newTaskForm, setNewTaskForm] = useState({ username: '', email: '', text: '' });
+    const [newTaskForm, setNewTaskForm] = useState(initialNewTaskForm);
 
     const onChangeHandler = (event) => {
         const { name, value } = event.target;
@@ -23,6 +25,7 @@ function NewTaskPopup({ isOpened, onClose }) {
         event.preventDefault();
         dispatch(createTask(newTaskForm));
         onClose();
+        setNewTaskForm(initialNewTaskForm)
     };
 
     return (

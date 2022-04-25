@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTasks } from '../../redux/actions';
 import { currentTasksSelector, userSelector } from '../../redux/selectors';
 import PageControlPanel from '../PageControlPanel/PageControlPanel';
+import Preloader from '../Preloader/Preloader';
 import Task from '../Task/Task';
 
 import './TaskList.css';
@@ -23,7 +24,9 @@ function TaskList() {
     }, [settings, dispatch]);
 
     if (!tasks || loading) {
-        return <div>Loading</div>
+        return <div className="task-list">
+            <Preloader />
+        </div>
     }
 
     return (

@@ -7,6 +7,7 @@ import { checkToken } from '../../redux/actions';
 import { userSelector } from '../../redux/selectors';
 import LoginPage from '../LoginPage/LoginPage';
 import MainPage from '../MainPage/MainPage';
+import Preloader from '../Preloader/Preloader';
 
 import './App.css';
 
@@ -20,7 +21,13 @@ function App() {
     }, [dispatch])
 
     if (loading || username === undefined) {
-        return <div>Loading</div>
+        return (
+            <div className="app">
+                <div className="app__preloader">
+                    <Preloader />
+                </div>
+            </div>
+        )
     }
 
     return (

@@ -3,7 +3,7 @@
     flex: .2;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .sort-panel__field {
@@ -42,4 +42,8 @@
     color: #FFF;
     cursor: pointer;
     transition: opacity .3s ease-out;
+}
+
+.sort-panel__button:hover {
+    opacity: .8;
 }

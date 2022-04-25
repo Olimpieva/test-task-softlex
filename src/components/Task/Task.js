@@ -49,7 +49,7 @@ function Task({ item, adminAccess }) {
             <span>№ {id}</span>
             <form className="task-form" onSubmit={submitHandler}>
 
-                <select className="task-form__status-list" defaultValue={status} name="status" onChange={onChangeHandler}>
+                <select className="task-form__status-list" defaultValue={status} name="status" onChange={onChangeHandler} disabled={!adminAccess}>
                     <option value={0}>Not Done & Not Edited</option>
                     <option value={1}>Not Done & Edited</option>
                     <option value={10}>Done & Not Edited</option>

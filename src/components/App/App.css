@@ -19,3 +19,9 @@
   position: relative;
   transition: all 0.3s ease-out;
 }
+
+.app__preloader {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
