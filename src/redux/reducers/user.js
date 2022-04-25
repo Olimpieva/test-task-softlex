@@ -1,7 +1,7 @@
 import { LOGIN, REQUEST, SUCCESS, FAILURE, RESET_ERROR } from "../actions/actionTypes";
 
 const initialState = {
-    username: null,
+    username: undefined,
     loading: false,
     error: null
 };
@@ -14,7 +14,7 @@ const User = (state = initialState, action) => {
         case LOGIN + SUCCESS:
             return { ...state, username: action.payload, loading: false, error: null };
         case LOGIN + FAILURE:
-            return { ...state, username: null, loading: false, error: action.payload };
+            return { ...state, username: null, loading: false, error: action.payload || null };
         case RESET_ERROR:
             return { ...state, error: null };
         default:

@@ -1,6 +1,7 @@
 import { createSelector } from "reselect";
 
 export const currentTasksSelector = state => state.tasks;
+export const userSelector = state => state.user;
 
 const totalTasksCount = state => state.tasks.totalEntitiesCount;
 

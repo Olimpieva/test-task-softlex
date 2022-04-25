@@ -1,12 +1,14 @@
 import api from "../../utils/Api";
 import handleError from "./errorHandler";
 import {
+    FAILURE,
     GET_TASKS,
     LOGIN,
     REQUEST,
     SET_REQUEST_SETTINGS,
     SUCCESS,
 } from "./actionTypes";
+import { getCookie } from "../../utils/constants";
 
 export const getTasks = () => async (dispatch, getState) => {
 
@@ -31,6 +33,8 @@ export const setRequestSettings = (settings) => ({ type: SET_REQUEST_SETTINGS, p
 
 export const login = (loginData) => async (dispatch, getState) => {
 
+    console.log('Ya tut?')
+
     const { user: { loading } } = getState();
 
     if (loading) {
@@ -40,17 +44,33 @@ export const login = (loginData) => async (dispatch, getState) => {
     dispatch({ type: LOGIN + REQUEST });
 
     try {
-        const { message: { token } } = await api.login(loginData);
+        const { status, message } = await api.login(loginData);
+
+        if (status === "error") {
+            throw Error();
+        }
+
         const username = loginData.get('username');
+        document.cookie = `jwt=${message.token}; path=/; max-age=86400`;
+        document.cookie = `username=${username}; path=/; max-age=86400`;
 
-        localStorage.setItem('jwt', token);
-        localStorage.setItem('username', username);
-
-        dispatch({ type: LOGIN + SUCCESS, payload: username });
+        dispatch({ type: LOGIN + SUCCESS, payload: username })
     } catch (error) {
-        dispatch(handleError({ errorCode: 500, action: LOGIN }));
+        dispatch(handleError({ errorCode: error.errorCode || 401, action: LOGIN }));
     };
+};
 
-}
+export const checkToken = () => (dispatch) => {
+
+    const jwt = getCookie('jwt');
+
+    if (!jwt) {
+        return dispatch({ type: LOGIN + FAILURE })
+    }
+
+    const username = getCookie('username');
+
+    dispatch({ type: LOGIN + SUCCESS, payload: username })
+};
 
 

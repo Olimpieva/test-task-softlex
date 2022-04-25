@@ -1,4 +1,4 @@
-export const MAIN_URL = 'https://uxcandy.com/~shapoval/test-task-backend/v2/?developer=Olimpieva.&sort_field=username';
+export const MAIN_URL = 'https://uxcandy.com/~shapoval/test-task-backend/v2/';
 
 export const API_OPTIONS = {
     url: 'https://uxcandy.com/~shapoval/test-task-backend/v2/',
@@ -27,3 +27,14 @@ export const requestErrorMessages = {
     invalidAuthUserData: () => 'Некорректный логин или пароль',
     otherError: ({ errorCode, action }) => `Ой! Во время запроса ${action} произошла ошибка ${errorCode}`,
 };
+
+export const getCookie = (name) => {
+    const cookies = document.cookie.split('; ');
+    const res = cookies.find(item => item.startsWith(`${name}=`));
+
+    if (res) {
+        return res.substring(res.indexOf('=') + 1);
+    }
+
+    return;
+}

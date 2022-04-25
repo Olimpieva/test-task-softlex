@@ -12,6 +12,7 @@ class MainApi {
         try {
             const response = await fetch(`${this._url}${path}?developer=${this._developerName}${settings}`, { ...requestOptions });
 
+            console.log({ response })
             if (!response.ok) {
                 throw response;
             }
