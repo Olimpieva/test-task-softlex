@@ -1,33 +1,44 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { login } from '../../redux/actions';
-import Header from '../Header/Header';
 
 import './LoginPage.css';
 
 function LoginPage() {
 
     const dispatch = useDispatch();
-    const loginForm = useRef(null);
+    const [loginForm, setLoginForm] = useState({ username: '', password: '' });
+
+    const onChangeHandler = event => {
+        setLoginForm(prevState => ({
+            ...prevState,
+            [event.target.name]: event.target.value
+        }))
+    };
 
     const submitHandler = event => {
         event.preventDefault();
-        const loginData = new FormData(loginForm.current);
-
-        dispatch(login(loginData));
+        dispatch(login(loginForm));
     };
 
     return (
         <div className="login-page">
-            <Header />
+            <header className="header login-page__header">
+                <Link to="/">
+                    <button>To tasks</button>
+                </Link>
+            </header>
             <main className="login-page__content">
-                <form ref={loginForm} onSubmit={submitHandler}>
+                <form onSubmit={submitHandler}>
                     <fieldset>
                         <label>Username</label>
                         <input name="username"
                             type="text"
                             minLength="2"
+                            value={loginForm.username}
+                            onChange={onChangeHandler}
                             required
                         />
                     </fieldset>
@@ -36,6 +47,8 @@ function LoginPage() {
                         <input name="password"
                             type="password"
                             minLength="3"
+                            value={loginForm.password}
+                            onChange={onChangeHandler}
                             required
                         />
                     </fieldset>

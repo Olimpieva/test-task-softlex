@@ -3,6 +3,7 @@ import { API_OPTIONS } from "./constants";
 class MainApi {
     constructor(apiOptions) {
         this._url = apiOptions.url;
+        this._headers = apiOptions.headers;
         this._developerName = apiOptions.developerName;
         this._requestSettings = apiOptions.settings;
     }
@@ -12,7 +13,6 @@ class MainApi {
         try {
             const response = await fetch(`${this._url}${path}?developer=${this._developerName}${settings}`, { ...requestOptions });
 
-            console.log({ response })
             if (!response.ok) {
                 throw response;
             }
@@ -25,7 +25,6 @@ class MainApi {
     };
 
     _getRequestSettings(settings) {
-
         const page = this._requestSettings.page(settings.page);
         const sortField = this._requestSettings.sortField(settings.sortField);
         const sortDirection = this._requestSettings.sortDirection(settings.sortDirection);
@@ -38,10 +37,24 @@ class MainApi {
 
         return this._sendRequest(
             ``,
-            { method: 'GET' },
+            {
+                method: 'GET',
+                headers: this._headers,
+            },
             this._getRequestSettings(currentSettings),
         );
     };
+
+    updateTask(taskData, taskId) {
+
+        return this._sendRequest(
+            `edit/${taskId}`,
+            {
+                method: 'POST',
+                body: taskData,
+            }
+        );
+    }
 
     login(loginData) {
 
@@ -52,7 +65,7 @@ class MainApi {
                 body: loginData,
             }
         );
-    }
+    };
 
 };
 

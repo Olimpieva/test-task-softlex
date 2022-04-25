@@ -2,6 +2,9 @@ export const MAIN_URL = 'https://uxcandy.com/~shapoval/test-task-backend/v2/';
 
 export const API_OPTIONS = {
     url: 'https://uxcandy.com/~shapoval/test-task-backend/v2/',
+    headers: {
+        "Content-Type": "application/json",
+    },
     developerName: 'Olimpieva.',
     settings: {
         sortField: (field) => `&sort_field=${field}`,
@@ -10,7 +13,7 @@ export const API_OPTIONS = {
     }
 };
 
-export const availableSortFields = {
+export const availableFields = {
     id: 'id',
     username: 'username',
     email: 'email',
@@ -20,7 +23,7 @@ export const availableSortFields = {
 export const availableSortDirection = {
     increasing: 'asc',
     decreasing: 'desc',
-}
+};
 
 export const requestErrorMessages = {
     serverError: () => 'Произошла ошибка на сервере. Попробуйте повторить запрос позднее.',
@@ -37,4 +40,14 @@ export const getCookie = (name) => {
     }
 
     return;
+};
+
+export const createFormData = (data) => {
+    const formData = new FormData();
+
+    for (let key in data) {
+        formData.set(key, data[key])
+    }
+
+    return formData;
 }

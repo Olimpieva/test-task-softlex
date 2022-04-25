@@ -13,9 +13,7 @@ import './App.css';
 function App() {
 
     const dispatch = useDispatch();
-    const { username, loading, error } = useSelector(userSelector);
-
-    console.log({ error })
+    const { username, loading } = useSelector(userSelector);
 
     useEffect(() => {
         dispatch(checkToken());

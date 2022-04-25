@@ -7,11 +7,11 @@ import {
     REQUEST,
     SET_REQUEST_SETTINGS,
     SUCCESS,
+    UPDATE_TASK,
 } from "./actionTypes";
-import { getCookie } from "../../utils/constants";
+import { createFormData, getCookie } from "../../utils/constants";
 
 export const getTasks = () => async (dispatch, getState) => {
-
     const { tasks: { loading, settings } } = getState();
 
     if (loading) {
@@ -31,10 +31,7 @@ export const getTasks = () => async (dispatch, getState) => {
 
 export const setRequestSettings = (settings) => ({ type: SET_REQUEST_SETTINGS, payload: settings });
 
-export const login = (loginData) => async (dispatch, getState) => {
-
-    console.log('Ya tut?')
-
+export const login = ({ username, password }) => async (dispatch, getState) => {
     const { user: { loading } } = getState();
 
     if (loading) {
@@ -43,18 +40,19 @@ export const login = (loginData) => async (dispatch, getState) => {
 
     dispatch({ type: LOGIN + REQUEST });
 
+    const requestData = createFormData({ username, password });
+
     try {
-        const { status, message } = await api.login(loginData);
+        const { status, message } = await api.login(requestData);
 
         if (status === "error") {
             throw Error();
         }
 
-        const username = loginData.get('username');
         document.cookie = `jwt=${message.token}; path=/; max-age=86400`;
         document.cookie = `username=${username}; path=/; max-age=86400`;
 
-        dispatch({ type: LOGIN + SUCCESS, payload: username })
+        dispatch({ type: LOGIN + SUCCESS, payload: username });
     } catch (error) {
         dispatch(handleError({ errorCode: error.errorCode || 401, action: LOGIN }));
     };
@@ -72,5 +70,27 @@ export const checkToken = () => (dispatch) => {
 
     dispatch({ type: LOGIN + SUCCESS, payload: username })
 };
+
+export const updateTask = ({ id, status, text, username, email }) => async (dispatch) => {
+    const token = getCookie('jwt');
+
+    if (!token) {
+        return;
+    }
+
+    const requestData = createFormData({ token, status, text });
+
+    try {
+        const response = await api.updateTask(requestData, id);
+
+        if (response.status === "error") {
+            throw Error();
+        }
+
+        dispatch({ type: UPDATE_TASK + SUCCESS, payload: { id, status, text, username, email } })
+    } catch (error) {
+        dispatch(handleError({ errorCode: error.errorCode || 401, action: UPDATE_TASK }));
+    };
+}
 
 
