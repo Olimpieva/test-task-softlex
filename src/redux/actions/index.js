@@ -1,6 +1,7 @@
 import api from "../../utils/Api";
 import handleError from "./errorHandler";
 import {
+    CREATE_TASK,
     FAILURE,
     GET_TASKS,
     LOGIN,
@@ -70,6 +71,23 @@ export const checkToken = () => (dispatch) => {
 
     dispatch({ type: LOGIN + SUCCESS, payload: username })
 };
+
+export const createTask = (newTaskData) => async (dispatch) => {
+
+    const requestData = createFormData(newTaskData);
+
+    try {
+        const { status, message } = await api.createTask(requestData);
+
+        if (status === "error") {
+            throw Error();
+        }
+
+        dispatch({ type: CREATE_TASK + SUCCESS, payload: message })
+    } catch (error) {
+        dispatch(handleError({ errorCode: error.errorCode || 500, action: CREATE_TASK }));
+    };
+}
 
 export const updateTask = ({ id, status, text, username, email }) => async (dispatch) => {
     const token = getCookie('jwt');

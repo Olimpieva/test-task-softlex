@@ -18,6 +18,7 @@ export const availableFields = {
     username: 'username',
     email: 'email',
     status: 'status',
+    text: 'text',
 };
 
 export const availableSortDirection = {

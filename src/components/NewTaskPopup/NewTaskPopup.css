@@ -1,0 +1,7 @@
+.new-task-popup {
+    display: none;
+}
+
+.new-task-popup__opened {
+    display: block;
+}

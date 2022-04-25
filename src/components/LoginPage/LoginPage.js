@@ -12,9 +12,11 @@ function LoginPage() {
     const [loginForm, setLoginForm] = useState({ username: '', password: '' });
 
     const onChangeHandler = event => {
+        const input = event.target;
+
         setLoginForm(prevState => ({
             ...prevState,
-            [event.target.name]: event.target.value
+            [input.name]: input.value
         }))
     };
 

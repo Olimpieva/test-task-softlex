@@ -32,6 +32,16 @@ class MainApi {
         return page + sortField + sortDirection;
     };
 
+    login(loginData) {
+
+        return this._sendRequest(
+            `login`,
+            {
+                method: 'POST',
+                body: loginData,
+            }
+        );
+    };
 
     getTasks(currentSettings) {
 
@@ -45,6 +55,17 @@ class MainApi {
         );
     };
 
+    createTask(newTask) {
+
+        return this._sendRequest(
+            `create`,
+            {
+                method: 'POST',
+                body: newTask,
+            }
+        );
+    }
+
     updateTask(taskData, taskId) {
 
         return this._sendRequest(
@@ -55,18 +76,6 @@ class MainApi {
             }
         );
     }
-
-    login(loginData) {
-
-        return this._sendRequest(
-            `login`,
-            {
-                method: 'POST',
-                body: loginData,
-            }
-        );
-    };
-
 };
 
 const api = new MainApi(API_OPTIONS);

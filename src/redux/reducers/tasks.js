@@ -1,5 +1,5 @@
 import { availableSortDirection, availableFields } from "../../utils/constants";
-import { GET_TASKS, REQUEST, SUCCESS, FAILURE, RESET_ERROR, SET_REQUEST_SETTINGS, UPDATE_TASK } from "../actions/actionTypes";
+import { GET_TASKS, REQUEST, SUCCESS, FAILURE, RESET_ERROR, SET_REQUEST_SETTINGS, UPDATE_TASK, CREATE_TASK } from "../actions/actionTypes";
 
 const initialState = {
     entities: null,
@@ -24,6 +24,12 @@ const Tasks = (state = initialState, action) => {
 
         case GET_TASKS + FAILURE:
             return { ...state, entities: null, totalEntitiesCount: 0, loading: false, error: action.payload };
+
+        case CREATE_TASK + SUCCESS:
+            return { ...state, entities: [action.payload, ...state.entities], loading: false, error: null };
+
+        case CREATE_TASK + FAILURE:
+            return { ...state, loading: false, error: action.payload };
 
         case UPDATE_TASK + SUCCESS:
             const updatedTask = action.payload;
