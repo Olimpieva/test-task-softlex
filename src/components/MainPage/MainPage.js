@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import Header from '../Header/Header';
 import NewTaskPopup from '../NewTaskPopup/NewTaskPopup';
 import SortPanel from '../SortPanel/SortPanel';
@@ -10,13 +11,8 @@ function MainPage() {
 
     const [isNewTaskPopupOpened, setIsNewTaskPopupOpened] = useState(false);
 
-    const closeNewTaskPopup = () => {
-        setIsNewTaskPopupOpened(false);
-    }
-
-    const openNewTaskPopup = () => {
-        setIsNewTaskPopupOpened(true);
-    }
+    const closeNewTaskPopup = () => setIsNewTaskPopupOpened(false);
+    const openNewTaskPopup = () => setIsNewTaskPopupOpened(true);
 
     return (
         <div className="main-page">
@@ -31,6 +27,6 @@ function MainPage() {
             </main>
         </div>
     );
-}
+};
 
 export default MainPage;

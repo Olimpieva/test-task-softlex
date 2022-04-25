@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { createTask } from '../../redux/actions';
 import { availableFields } from '../../utils/constants';
 import InputField from '../InputField/InputField';
@@ -15,17 +16,14 @@ function NewTaskPopup({ isOpened, onClose }) {
 
     const onChangeHandler = (event) => {
         const { name, value } = event.target;
-        setNewTaskForm(prevState => ({
-            ...prevState,
-            [name]: value
-        }))
+        setNewTaskForm(prevState => ({ ...prevState, [name]: value }));
     };
 
     const submitHandler = (event) => {
         event.preventDefault();
         dispatch(createTask(newTaskForm));
         onClose();
-        setNewTaskForm(initialNewTaskForm)
+        setNewTaskForm(initialNewTaskForm);
     };
 
     return (
@@ -45,7 +43,6 @@ function NewTaskPopup({ isOpened, onClose }) {
                         value={newTaskForm.text}
                         onChange={onChangeHandler}
                     />
-
                     <InputField
                         type="email"
                         name={availableFields.email}
@@ -57,7 +54,6 @@ function NewTaskPopup({ isOpened, onClose }) {
                         value={newTaskForm.email}
                         onChange={onChangeHandler}
                     />
-
                     <InputField
                         type="text"
                         name={availableFields.username}

@@ -27,7 +27,7 @@ function App() {
                     <Preloader />
                 </div>
             </div>
-        )
+        );
     }
 
     return (

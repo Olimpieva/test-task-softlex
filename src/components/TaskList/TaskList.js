@@ -17,7 +17,7 @@ function TaskList() {
 
     useEffect(() => {
         dispatch(getTasks());
-    }, [dispatch])
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getTasks());

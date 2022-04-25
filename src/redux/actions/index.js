@@ -14,6 +14,7 @@ import {
 import { createFormData, getCookie } from "../../utils/constants";
 
 export const checkToken = () => (dispatch) => {
+
     const jwt = getCookie('jwt');
 
     if (!jwt) {
@@ -21,10 +22,12 @@ export const checkToken = () => (dispatch) => {
     }
 
     const username = getCookie('username');
+
     dispatch({ type: LOGIN + SUCCESS, payload: username })
 };
 
 export const login = ({ username, password }) => async (dispatch, getState) => {
+
     const { user: { loading } } = getState();
 
     if (loading) {
@@ -52,6 +55,7 @@ export const login = ({ username, password }) => async (dispatch, getState) => {
 };
 
 export const logout = () => {
+
     document.cookie = `jwt=; path=/; max-age=0`;
     document.cookie = `username=; path=/; max-age=0`;
 
@@ -59,6 +63,7 @@ export const logout = () => {
 }
 
 export const getTasks = () => async (dispatch, getState) => {
+
     const { tasks: { loading, settings } } = getState();
 
     if (loading) {
@@ -104,6 +109,7 @@ export const createTask = (newTaskData) => async (dispatch, getState) => {
 }
 
 export const updateTask = ({ id, status, text, username, email }) => async (dispatch, getState) => {
+
     const { tasks: { loading } } = getState();
     const token = getCookie('jwt');
 

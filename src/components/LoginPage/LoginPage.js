@@ -59,6 +59,6 @@ function LoginPage() {
             </main>
         </div>
     );
-}
+};
 
 export default LoginPage;

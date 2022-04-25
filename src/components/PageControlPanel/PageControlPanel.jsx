@@ -9,7 +9,6 @@ import './PageControlPanel.css';
 function PageControlPanel() {
 
     const dispatch = useDispatch();
-
     const { settings: { page: currentPage } } = useSelector(currentTasksSelector);
     const lastPageNumber = useSelector(lastPageNumberSelector);
 
@@ -18,7 +17,7 @@ function PageControlPanel() {
             dispatch(setRequestSettings({ page: currentPage + 1 }))
             :
             dispatch(setRequestSettings({ page: currentPage - 1 }));
-    }
+    };
 
     return (
         <div className="page-control-panel">
@@ -26,6 +25,6 @@ function PageControlPanel() {
             {currentPage !== lastPageNumber && <button className="page-control-panel__button" name="next-page" onClick={turnPageHandler}>Next</button>}
         </div>
     );
-}
+};
 
 export default PageControlPanel;

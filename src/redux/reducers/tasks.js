@@ -1,5 +1,5 @@
 import { availableSortDirection, availableFields } from "../../utils/constants";
-import { GET_TASKS, REQUEST, SUCCESS, FAILURE, RESET_ERROR, SET_REQUEST_SETTINGS, UPDATE_TASK, CREATE_TASK } from "../actions/actionTypes";
+import { GET_TASKS, REQUEST, SUCCESS, FAILURE, SET_REQUEST_SETTINGS, UPDATE_TASK, CREATE_TASK } from "../actions/actionTypes";
 
 const initialState = {
     entities: null,
@@ -36,8 +36,6 @@ const Tasks = (state = initialState, action) => {
             const updatedTaskIndex = state.entities.findIndex((item) => item.id === updatedTask.id);
             const updatedEntities = [...state.entities.slice(0, updatedTaskIndex), updatedTask, ...state.entities.slice(updatedTaskIndex + 1)];
 
-            console.log({ updatedEntities })
-
             return { ...state, entities: updatedEntities, loading: false, error: null }
 
         case UPDATE_TASK + FAILURE:
@@ -51,9 +49,6 @@ const Tasks = (state = initialState, action) => {
             }
 
             return { ...state, settings: newSettings };
-
-        case RESET_ERROR:
-            return { ...state, error: null };
 
         default:
             return state;

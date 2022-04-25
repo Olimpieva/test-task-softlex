@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { updateTask } from '../../redux/actions';
 import { availableFields } from '../../utils/constants';
 import InputField from '../InputField/InputField';
@@ -26,11 +27,10 @@ function Task({ item, adminAccess }) {
 
     const onChangeHandler = (event) => {
         const { name, value } = event.target;
-        console.log({ name, value })
         setTaskForm(prevState => ({
             ...prevState,
             [name]: value
-        }))
+        }));
     };
 
     const submitHandler = (event) => {
@@ -66,7 +66,6 @@ function Task({ item, adminAccess }) {
                     value={taskForm.text}
                     onChange={onChangeHandler}
                 />
-
                 <InputField
                     type="text"
                     name={availableFields.username}
@@ -77,7 +76,6 @@ function Task({ item, adminAccess }) {
                     value={taskForm.username}
                     onChange={onChangeHandler}
                 />
-
                 <InputField
                     type="email"
                     name={availableFields.email}

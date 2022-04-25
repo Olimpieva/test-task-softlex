@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+
 import { setRequestSettings } from '../../redux/actions';
 import { availableFields, availableSortDirection } from '../../utils/constants';
 
@@ -9,13 +10,8 @@ function SortPanel() {
 
     const dispatch = useDispatch();
 
-    const sortByFieldHandler = (event) => {
-        dispatch(setRequestSettings({ sortField: event.target.name, page: 1 }));
-    }
-
-    const sortByDirectionHandler = (event) => {
-        dispatch(setRequestSettings({ sortDirection: event.target.name, page: 1 }));
-    }
+    const sortByFieldHandler = (event) => dispatch(setRequestSettings({ sortField: event.target.name, page: 1 }));
+    const sortByDirectionHandler = (event) => dispatch(setRequestSettings({ sortDirection: event.target.name, page: 1 }));
 
     return (
         <div className="sort-panel">
@@ -33,6 +29,6 @@ function SortPanel() {
             </div>
         </div>
     );
-}
+};
 
 export default SortPanel;

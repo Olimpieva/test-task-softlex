@@ -21,6 +21,6 @@ function InputField(props) {
             />
         </fieldset>
     )
-}
+};
 
 export default InputField;
