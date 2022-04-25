@@ -26,6 +26,8 @@ export const availableSortDirection = {
     decreasing: 'desc',
 };
 
+export const statusList = [0, 1, 10, 11];
+
 export const requestErrorMessages = {
     serverError: () => 'Произошла ошибка на сервере. Попробуйте повторить запрос позднее.',
     invalidAuthUserData: () => 'Некорректный логин или пароль',

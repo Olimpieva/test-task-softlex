@@ -22,8 +22,8 @@ function PageControlPanel() {
 
     return (
         <div className="page-control-panel">
-            {currentPage !== 1 && <button name="prev-page" onClick={turnPageHandler}>Back</button>}
-            {currentPage !== lastPageNumber && <button name="next-page" onClick={turnPageHandler}>Next</button>}
+            {currentPage !== 1 && <button className="page-control-panel__button" name="prev-page" onClick={turnPageHandler}>Back</button>}
+            {currentPage !== lastPageNumber && <button className="page-control-panel__button" name="next-page" onClick={turnPageHandler}>Next</button>}
         </div>
     );
 }

@@ -1,0 +1,45 @@
+.sort-panel {
+    height: 100%;
+    flex: .2;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.sort-panel__field {
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sort-panel__direction {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sort-panel__title {
+    max-width: 160px;
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+.sort-panel__button {
+    max-width: 160px;
+    min-height: 30px;
+    flex: .2;
+    border: none;
+    border-radius: 3px;
+    background: #4285f4;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.21;
+    color: #FFF;
+    cursor: pointer;
+    transition: opacity .3s ease-out;
+}

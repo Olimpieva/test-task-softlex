@@ -18,17 +18,18 @@ function SortPanel() {
     }
 
     return (
-        <div className='sort-panel'>
-            <h3>Sort</h3>
-            <div className='sort-panel__field'>
-                <button name={availableFields.id} className='sort-panel__button' onClick={sortByFieldHandler}>Id</button>
-                <button name={availableFields.username} className='sort-panel__button' onClick={sortByFieldHandler}>Username</button>
-                <button name={availableFields.email} className='sort-panel__button' onClick={sortByFieldHandler}>Email</button>
-                <button name={availableFields.status} className='sort-panel__button' onClick={sortByFieldHandler}>Status</button>
+        <div className="sort-panel">
+            <div className="sort-panel__field">
+                <h3 className="sort-panel__title">Sort</h3>
+                <button name={availableFields.id} className="sort-panel__button" onClick={sortByFieldHandler}>Id</button>
+                <button name={availableFields.username} className="sort-panel__button" onClick={sortByFieldHandler}>Username</button>
+                <button name={availableFields.email} className="sort-panel__button" onClick={sortByFieldHandler}>Email</button>
+                <button name={availableFields.status} className="sort-panel__button" onClick={sortByFieldHandler}>Status</button>
             </div>
             <div className='sort-panel__direction'>
-                <button name={availableSortDirection.increasing} className='sort-panel__button' onClick={sortByDirectionHandler}>Increasing</button>
-                <button name={availableSortDirection.decreasing} className='sort-panel__button' onClick={sortByDirectionHandler}>Decreasing</button>
+                <h3 className="sort-panel__title">Direction</h3>
+                <button name={availableSortDirection.increasing} className="sort-panel__button" onClick={sortByDirectionHandler}>Increasing</button>
+                <button name={availableSortDirection.decreasing} className="sort-panel__button" onClick={sortByDirectionHandler}>Decreasing</button>
             </div>
         </div>
     );

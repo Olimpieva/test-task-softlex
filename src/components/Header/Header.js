@@ -13,10 +13,14 @@ function Header() {
     return (
         <header className="header">
             {username ?
-                <span>{username}</span>
+                <div className="header_main-page">
+                    <span>{username}</span>
+                    <button className="header__button header__button_signout">Sign out</button>
+                </div>
+
                 :
                 <Link to="/signin">
-                    <button>Log in</button>
+                    <button className="header__button header__button_signin">Sign in</button>
                 </Link>
             }
         </header>

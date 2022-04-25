@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createTask } from '../../redux/actions';
 import { availableFields } from '../../utils/constants';
+import InputField from '../InputField/InputField';
 
 import './NewTaskPopup.css';
 
@@ -11,55 +12,61 @@ function NewTaskPopup({ isOpened, onClose }) {
     const [newTaskForm, setNewTaskForm] = useState({ username: '', email: '', text: '' });
 
     const onChangeHandler = (event) => {
-        const input = event.target;
-
+        const { name, value } = event.target;
         setNewTaskForm(prevState => ({
             ...prevState,
-            [input.name]: input.value
+            [name]: value
         }))
     };
 
     const submitHandler = (event) => {
         event.preventDefault();
         dispatch(createTask(newTaskForm));
+        onClose();
     };
 
     return (
-        <div className={`new-task-popup ${isOpened && "new-task-popup__opened"}`}>
+        <div className={`new-task-popup ${isOpened && "new-task-popup_opened"}`}>
             <div className="new-task-popup__container">
-                <button type="reset" onClick={onClose}>Close</button>
-                <form onSubmit={submitHandler}>
-                    <h2>New Task</h2>
-                    <fieldset>
-                        <label>Text</label>
-                        <input name={availableFields.text}
-                            value={newTaskForm.text}
-                            onChange={onChangeHandler}
-                            required
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <label>Username</label>
-                        <input name={availableFields.username}
-                            type="username"
-                            minLength="2"
-                            maxLength="30"
-                            value={newTaskForm.username}
-                            onChange={onChangeHandler}
-                            required
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <label>Email</label>
-                        <input name={availableFields.email}
-                            type="email"
-                            pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"
-                            value={newTaskForm.email}
-                            onChange={onChangeHandler}
-                            required
-                        />
-                    </fieldset>
-                    <button type="submit">Create Task</button>
+                <button className="new-task-popup__button new-task-popup__button_close" type="reset" onClick={onClose}>&times;</button>
+                <form className="new-task-form" onSubmit={submitHandler}>
+                    <h2 className="new-task-popup__title">New Task</h2>
+
+                    <InputField
+                        type="text"
+                        name={availableFields.text}
+                        formName="new-task-popup"
+                        title="Text"
+                        isEdited={true}
+                        required
+                        value={newTaskForm.text}
+                        onChange={onChangeHandler}
+                    />
+
+                    <InputField
+                        type="email"
+                        name={availableFields.email}
+                        formName="new-task-popup"
+                        title="Email"
+                        isEdited={true}
+                        pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"
+                        required
+                        value={newTaskForm.email}
+                        onChange={onChangeHandler}
+                    />
+
+                    <InputField
+                        type="text"
+                        name={availableFields.username}
+                        formName="new-task-popup"
+                        title="Username"
+                        isEdited={true}
+                        required
+                        value={newTaskForm.username}
+                        onChange={onChangeHandler}
+                    />
+
+                    <button type="submit" className="new-task-popup__button new-task-popup__button_submit">Create Task</button>
                 </form>
             </div>
         </div>

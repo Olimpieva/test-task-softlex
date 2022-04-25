@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../Header/Header';
 import NewTaskPopup from '../NewTaskPopup/NewTaskPopup';
+import SortPanel from '../SortPanel/SortPanel';
 import Tasklist from '../TaskList/TaskList';
 
 import './MainPage.css';
@@ -20,12 +21,12 @@ function MainPage() {
     return (
         <div className="main-page">
             <Header />
-
             <main className="main-page__content">
-                <button onClick={openNewTaskPopup}>New Task</button>
-                <h1>Tasks</h1>
-                <Tasklist />
-
+                <SortPanel />
+                <div className="main-page__tasks-info">
+                    <button className="main-page__button" onClick={openNewTaskPopup}>New Task</button>
+                    <Tasklist />
+                </div>
                 <NewTaskPopup isOpened={isNewTaskPopupOpened} onClose={closeNewTaskPopup} />
             </main>
         </div>

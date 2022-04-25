@@ -1,7 +1,89 @@
 .new-task-popup {
-    display: none;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease-out;
 }
 
-.new-task-popup__opened {
-    display: block;
+.new-task-popup_opened {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.new-task-popup__container {
+    width: 40%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px 50px;
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0 0 25px rgb(0 0 0 / 15%);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    background-color: #fff;
+}
+
+.new-task-popup__title {
+    margin: 0 0 20px;
+    text-align: center;
+    font-size: 24px;
+    color: #202020;
+}
+
+.new-task-popup__input-field {
+    margin-bottom: 15px;
+}
+
+.new-task-popup__input-field:last-of-type {
+    margin-bottom: 30px;
+}
+
+.new-task-popup__input-field .input-field__input{
+    color: #202020;
+}
+
+.new-task-popup__button {
+    border: none;
+    color: #FFF;
+    cursor: pointer;
+    transition: opacity .3s ease-in-out;
+    -moz-transition: opacity ease-in-out .3s;
+}
+
+.new-task-popup__button:hover {
+    opacity: .8;
+}
+
+.new-task-popup__button_close {
+    padding: 0;
+    position: absolute;
+    top: -42px;
+    right: -22px;
+    font-size: 40px;
+    line-height: 1.21;
+    background-color: transparent;
+}
+
+.new-task-popup__button_submit {
+    width: 100%;
+    padding: 15px 0;
+    min-height: 45px;
+    margin: 30px auto 0;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 16px;
+    line-height: 1.2;
+    background: #000;
 }

@@ -1,0 +1,48 @@
+.task {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.task-form {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.task-form__status-list {
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.21;
+    color: #fff;
+}
+
+.task-form__button {
+    min-width: 100px;
+    padding: 15px 0;
+    border: none;
+    border-radius: 3px;
+    background: #4285f4;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.21;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity .3s ease-out; 
+}
+
+.task-form__button:disabled {
+    background-color: #424242;
+    pointer-events: none;
+}
+
+.task-form__input-field .input-field__input{
+    color: #FFF;
+}

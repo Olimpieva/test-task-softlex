@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateTask } from '../../redux/actions';
 import { availableFields } from '../../utils/constants';
+import InputField from '../InputField/InputField';
 
 import './Task.css';
 
@@ -12,12 +13,23 @@ function Task({ item, adminAccess }) {
     const dispatch = useDispatch();
     const [taskForm, setTaskForm] = useState({ status, username, email, text });
 
-    const isInputChanged = useCallback(inputName => item[inputName] !== taskForm[inputName], [item, taskForm]);
+    const isFieldsChanged = useCallback(() => {
+
+        for (const key in taskForm) {
+            if (taskForm[key] !== item[key]) {
+                return true;
+            }
+        }
+
+        return false;
+    }, [item, taskForm]);
 
     const onChangeHandler = (event) => {
+        const { name, value } = event.target;
+        console.log({ name, value })
         setTaskForm(prevState => ({
             ...prevState,
-            [event.target.name]: event.target.value
+            [name]: value
         }))
     };
 
@@ -34,26 +46,51 @@ function Task({ item, adminAccess }) {
 
     return (
         <li className="task">
-            <span>{id}</span>
-            <form onSubmit={submitHandler}>
-                <fieldset>
-                    <label>Status</label>
-                    <input name={availableFields.status} value={taskForm.status} onChange={onChangeHandler} disabled={!adminAccess} />
-                    {adminAccess && <button disabled={!isInputChanged(availableFields.status)}>Edit</button>}
-                </fieldset>
-                <fieldset>
-                    <label>Text</label>
-                    <input name={availableFields.text} value={taskForm.text} onChange={onChangeHandler} disabled={!adminAccess} />
-                    {adminAccess && <button disabled={!isInputChanged(availableFields.text)}>Edit</button>}
-                </fieldset>
-                <fieldset>
-                    <label>Username</label>
-                    <input name={availableFields.username} value={taskForm.username} onChange={onChangeHandler} disabled />
-                </fieldset>
-                <fieldset>
-                    <label>Email</label>
-                    <input name={availableFields.email} value={taskForm.email} onChange={onChangeHandler} disabled />
-                </fieldset>
+            <span>№ {id}</span>
+            <form className="task-form" onSubmit={submitHandler}>
+
+                <select className="task-form__status-list" defaultValue={status} name="status" onChange={onChangeHandler}>
+                    <option value={0}>Not Done & Not Edited</option>
+                    <option value={1}>Not Done & Edited</option>
+                    <option value={10}>Done & Not Edited</option>
+                    <option value={11}>Done & Edited</option>
+                </select>
+
+                <InputField
+                    type="text"
+                    name={availableFields.text}
+                    formName="task-form"
+                    title="Text"
+                    isEdited={adminAccess}
+                    required
+                    value={taskForm.text}
+                    onChange={onChangeHandler}
+                />
+
+                <InputField
+                    type="text"
+                    name={availableFields.username}
+                    formName="task-form"
+                    title="Username"
+                    isEdited={false}
+                    required
+                    value={taskForm.username}
+                    onChange={onChangeHandler}
+                />
+
+                <InputField
+                    type="email"
+                    name={availableFields.email}
+                    formName="task-form"
+                    title="Email"
+                    isEdited={false}
+                    pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"
+                    required
+                    value={taskForm.email}
+                    onChange={onChangeHandler}
+                />
+
+                {adminAccess && <button className="task-form__button" disabled={!isFieldsChanged()}>Edit</button>}
             </form>
         </li>
     );
