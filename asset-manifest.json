@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/test-task-softlex/static/css/main.bcac144c.css",
+    "main.js": "/test-task-softlex/static/js/main.02927006.js",
+    "index.html": "/test-task-softlex/index.html",
+    "main.bcac144c.css.map": "/test-task-softlex/static/css/main.bcac144c.css.map",
+    "main.02927006.js.map": "/test-task-softlex/static/js/main.02927006.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bcac144c.css",
+    "static/js/main.02927006.js"
+  ]
+}
