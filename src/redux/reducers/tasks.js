@@ -32,23 +32,13 @@ const Tasks = (state = initialState, action) => {
             return { ...state, loading: false, error: action.payload };
 
         case UPDATE_TASK + SUCCESS:
-            const updatedTask = action.payload;
-            const updatedTaskIndex = state.entities.findIndex((item) => item.id === updatedTask.id);
-            const updatedEntities = [...state.entities.slice(0, updatedTaskIndex), updatedTask, ...state.entities.slice(updatedTaskIndex + 1)];
-
-            return { ...state, entities: updatedEntities, loading: false, error: null }
+            return { ...state, entities: action.payload, loading: false, error: null }
 
         case UPDATE_TASK + FAILURE:
             return { ...state, loading: false, error: action.payload };
 
         case SET_REQUEST_SETTINGS:
-            const newSettings = { ...state.settings };
-
-            for (let key in action.payload) {
-                newSettings[key] = action.payload[key];
-            }
-
-            return { ...state, settings: newSettings };
+            return { ...state, settings: { ...state.settings, ...action.payload } };
 
         default:
             return state;

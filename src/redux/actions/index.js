@@ -108,9 +108,9 @@ export const createTask = (newTaskData) => async (dispatch, getState) => {
     };
 }
 
-export const updateTask = ({ id, status, text, username, email }) => async (dispatch, getState) => {
+export const updateTask = (updatedTask) => async (dispatch, getState) => {
 
-    const { tasks: { loading } } = getState();
+    const { tasks: { loading, entities } } = getState();
     const token = getCookie('jwt');
 
     dispatch({ type: GET_TASKS + REQUEST });
@@ -119,16 +119,19 @@ export const updateTask = ({ id, status, text, username, email }) => async (disp
         return;
     }
 
-    const requestData = createFormData({ token, status, text });
+    const requestData = createFormData({ token, status: updatedTask.status, text: updatedTask.text });
 
     try {
-        const response = await api.updateTask(requestData, id);
+        const response = await api.updateTask(requestData, updatedTask.id);
 
         if (response.status === "error") {
             throw Error();
         }
 
-        dispatch({ type: UPDATE_TASK + SUCCESS, payload: { id, status, text, username, email } })
+        const updatedTaskIndex = entities.findIndex((item) => item.id === updatedTask.id);
+        const updatedEntities = [...entities.slice(0, updatedTaskIndex), updatedTask, ...entities.slice(updatedTaskIndex + 1)];
+
+        dispatch({ type: UPDATE_TASK + SUCCESS, payload: updatedEntities })
     } catch (error) {
         dispatch(handleError({ errorCode: error.errorCode || 401, action: UPDATE_TASK }));
     };
